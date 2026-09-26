@@ -4,6 +4,8 @@ A small, self contained project that takes **images** and rewrites them so that 
 single file is bigger than **100 KB** (or any other limit you type in) – and, as a
 bonus, converts them to another format.
 
+<a href="https://resizeimages-phi.vercel.app" target="_blank">▶️ <strong>Use this</strong></a>
+
 It ships with three front ends on top of one engine:
 
 | Front end | Start it with | Notes |
@@ -39,38 +41,38 @@ or double click **`run_web.bat`**.
 
 1. **Drop images, a batch, or a whole folder** on the drop area (the *browse your files*
    button and <kbd>Ctrl</kbd>+<kbd>V</kbd> paste work too). Every image gets a row with
-  its size, dimensions (once its preview loads) and a status chip; select multiple rows
-  to remove them together. A dropped folder is
-   walked recursively, so **sub folders are included and the structure is kept in the
-   zip** – `photos/summer/beach.png` comes back as `photos/summer/beach_min.webp`.
-   Prefer clicking? Use *Got a folder with sub folders? → Choose the folder* below the
-   drop area.
+   its size, dimensions (once its preview loads) and a status chip; select multiple rows
+   to remove them together. A dropped folder is
+    walked recursively, so **sub folders are included and the structure is kept in the
+    zip** – `photos/summer/beach.png` comes back as `photos/summer/beach_min.webp`.
+    Prefer clicking? Use *Got a folder with sub folders? → Choose the folder* below the
+    drop area.
 2. **Choose the output settings**
 
-    Use a quick preset for common email, website or social outputs, then fine-tune any
-    setting if needed. Open **Crop & rotate** to adjust an individual image: create a
-    freeform or ratio-locked crop, drag it to move, resize any edge or corner, adjust a
-    round crop's radius with arrow keys, and rotate by 90 degrees. **Crop & save** downloads
-    the edited image as a PNG without replacing the queued original. Edits also apply to
-    compressed downloads.
+     Use a quick preset for common email, website or social outputs, then fine-tune any
+     setting if needed. Open **Crop & rotate** to adjust an individual image: create a
+     freeform or ratio-locked crop, drag it to move, resize any edge or corner, adjust a
+     round crop's radius with arrow keys, and rotate by 90 degrees. **Crop & save** downloads
+     the edited image as a PNG without replacing the queued original. Edits also apply to
+     compressed downloads.
 
-   | setting | meaning |
-   | --- | --- |
-   | Compression mode | *Fit under a target size* (searches for it) or *Use a fixed quality* (one fast pass) |
-   | Max size per image | the byte budget in KB, with 50/100/200/500 KB presets |
-   | Quality | used by the *fixed quality* mode (and mirrored by the slider) |
-   | Output format | **Keep original**, **JPEG (.jpg)**, **WebP (.webp)** or **PNG (.png)** |
-  | Max width / height | optional downscale limit in pixels |
-  | Resize to (%) | optional additional scale-down from the dimensions above; never enlarges |
-   | Lowest quality before downscaling | below this the picture is scaled instead |
-  | Filename suffix or template | use `_min` or `{name}_{index}` (`holiday.jpg` → `holiday_001.webp`) |
+    | setting | meaning |
+    | --- | --- |
+    | Compression mode | *Fit under a target size* (searches for it) or *Use a fixed quality* (one fast pass) |
+    | Max size per image | the byte budget in KB, with 50/100/200/500 KB presets |
+    | Quality | used by the *fixed quality* mode (and mirrored by the slider) |
+    | Output format | **Keep original**, **JPEG (.jpg)**, **WebP (.webp)** or **PNG (.png)** |
+   | Max width / height | optional downscale limit in pixels |
+   | Resize to (%) | optional additional scale-down from the dimensions above; never enlarges |
+    | Lowest quality before downscaling | below this the picture is scaled instead |
+   | Filename suffix or template | use `_min` or `{name}_{index}` (`holiday.jpg` → `holiday_001.webp`) |
 
-3. **Press *Compress*** – the progress bar, the per file status and *Cancel* follow the
-  run. Results show `size before → size after`, the new pixel size, the chosen quality,
-  how much was saved, and a toggle to compare original and optimized previews. Download
-  single files or **Download all (.zip)** – with a
-   folder upload the archive reproduces your folders, and the zip is built in the browser
-   (no upload, no size limit).
+ 3. **Press *Compress*** – the progress bar, the per file status and *Cancel* follow the
+    run. Results show `size before → size after`, the new pixel size, the chosen quality,
+    how much was saved, and a toggle to compare original and optimized previews. Download
+    single files or **Download all (.zip)** – with a
+    folder upload the archive reproduces your folders, and the zip is built in the browser
+    (no upload, no size limit).
 
 ### Notes
 
@@ -305,8 +307,8 @@ transparency is flattened for JPEG, that the output tree mirrors the input tree,
 corrupt files are reported without stopping the batch, and that cancel / overwrite /
 CLI behave as documented.
 
-`tests/test_app_gui.py` drives the actual window (fills the folder fields, presses
-*Start*, pumps the event loop) and checks the produced file and the log. It is skipped
+`tests/test_app_gui.py` drives the actual window (fills the folder fields, presses *Start*,
+pumps the event loop) and checks the produced file and the log. It is skipped
 automatically when Tk is unavailable.
 
 `tests/test_web_server.py` starts `server.py` on a free port and checks that the page and
@@ -345,14 +347,14 @@ still offers the three writable formats.
 * The folder is scanned in the background (GUI) / before the first file (CLI) and the
   scan result is reported with its own line (`Scanning …`, `Found N image(s)`), so a slow
   network or OneDrive folder no longer looks like a frozen program.
-* A failed file never changes the original and never stops the batch; the log lists it
-  in red and the summary repeats it under *Failures*.
+* A failed file never changes the original and never stops the batch; the log lists it in
+  red and the summary repeats it under *Failures*.
 * JPEG keeps moving the quality knob only down to `--min-quality` (25 by default). Below
   that the resolution is reduced instead, which looks better than a very low quality
   photo.
-* The web app deliberately uses the *browser* encoder instead of Pillow: that is what makes
-  a free, static Vercel deployment possible and keeps large batches off any server. The
-  algorithm is the same (ceiling first, then a quality search, then downscaling), and
+* The web app deliberately uses the *browser* encoder instead of Pillow: that is what
+  makes a free, static Vercel deployment possible and keeps large batches off any server.
+  The algorithm is the same (ceiling first, then a quality search, then downscaling), and
   `compress_image_bytes` is available if you ever want Pillow quality server side.
 
 ## 10. Project layout
@@ -383,7 +385,7 @@ ResizeImage/
 │  └─ js/
 │     ├─ harness.js              DOM/canvas stand-in for the browser app
 │     ├─ web.test.js             browser app test suite
-│     └─ markup.test.js          page/script consistency checks
+│     └─ markup.test.js           page/script consistency checks
 └─ tools/
    └─ make_demo_images.py        writes sample images to try the tool on
 ```
@@ -396,5 +398,5 @@ python image_resizer.py demo_images -o demo_out --max-kb 100
 ```
 
 The helper creates a big photo, an incompressible noise PNG, a transparent logo, an
-already small JPEG, a nested album and one broken file – everything the compressor has
-to cope with. Both folders can be deleted again afterwards.
+already small JPEG, a nested album and one broken file – everything the compressor has to
+cope with. Both folders can be deleted again afterwards.
